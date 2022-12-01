@@ -2,13 +2,40 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SalesWebMvc.Data;
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddDbContext<SalesWebMvcContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<SeedingService>(); // injetando dependência
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+#region Seeding Service
+
+app.Services
+    .CreateScope()
+    .ServiceProvider
+    .GetRequiredService<SeedingService>()
+    .Seed(); // Forma no .NET 6 para popular o DB como seeding service
+#endregion
+
+
+#region Outra forma de resolver o problema do Seeding Service
+// Na classe HomeController, utilizar o código abaixo:
+
+//public HomeController(ILogger<HomeController> logger, SeedingService seedingService)
+
+//{
+
+//    _logger = logger;
+
+//    seedingService.Seed();
+
+//}
+
+#endregion
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -17,6 +44,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

@@ -8,9 +8,10 @@ namespace SalesWebMvc.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, SeedingService seedingService)
         {
             _logger = logger;
+            seedingService.Seed();
         }
 
         public IActionResult Index()
