@@ -6,19 +6,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<SalesWebMvcContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<SeedingService>(); // injetando dependência
 
 // Add services to the container.
+builder.Services.AddScoped<SeedingService>(); // injetando dependência
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+
 #region Seeding Service
 
-app.Services
-    .CreateScope()
-    .ServiceProvider
-    .GetRequiredService<SeedingService>()
-    .Seed(); // Forma no .NET 6 para popular o DB como seeding service
+app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedingService>().Seed(); // Forma no .NET 6 para popular o DB como seeding service
 #endregion
 
 

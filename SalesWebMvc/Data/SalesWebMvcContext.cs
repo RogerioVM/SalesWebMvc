@@ -10,12 +10,19 @@ namespace SalesWebMvc.Data
     public class SalesWebMvcContext : DbContext
     {
         public SalesWebMvcContext(DbContextOptions<SalesWebMvcContext> options) : base(options) { }
-
-        public void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new DepartmentsMap());
-            modelBuilder.ApplyConfiguration(new SellerMap());
-            modelBuilder.ApplyConfiguration(new SalesRecordMap());
+            modelBuilder.Entity<Department>()
+                .Property(p => p.Id)
+                .ValueGeneratedNever();
+
+            modelBuilder.Entity<Seller>()
+                .Property(p => p.Id).
+                ValueGeneratedNever();
+
+            modelBuilder.Entity<SalesRecord>()
+                .Property(p => p.Id)
+                .ValueGeneratedNever();
         }
         public DbSet<Department> Department { get; set; }
         public DbSet<Seller> Seller { get; set; }
