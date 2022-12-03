@@ -5,20 +5,20 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SalesWebMvc.Migrations
 {
-    public partial class Correction : Migration
+    public partial class EntitiesCorrectedWithMappings : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Department",
+                name: "Departments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "varchar(150)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Department", x => x.Id);
+                    table.PrimaryKey("PK_Departments", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -26,21 +26,20 @@ namespace SalesWebMvc.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BaseSalary = table.Column<double>(type: "float", nullable: false),
+                    Name = table.Column<string>(type: "varchar(150)", nullable: false),
+                    Email = table.Column<string>(type: "varchar(150)", nullable: false),
+                    BirthDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    BaseSalary = table.Column<decimal>(type: "numeric(38,2)", nullable: false),
                     DepartmentId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Seller", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Seller_Department_DepartmentId",
+                        name: "FK_Seller_Departments_DepartmentId",
                         column: x => x.DepartmentId,
-                        principalTable: "Department",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "Departments",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -48,8 +47,8 @@ namespace SalesWebMvc.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Amount = table.Column<double>(type: "float", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime", nullable: false),
+                    Amount = table.Column<decimal>(type: "numeric(38,2)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     SellerId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -60,8 +59,7 @@ namespace SalesWebMvc.Migrations
                         name: "FK_SalesRecord_Seller_SellerId",
                         column: x => x.SellerId,
                         principalTable: "Seller",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -84,7 +82,7 @@ namespace SalesWebMvc.Migrations
                 name: "Seller");
 
             migrationBuilder.DropTable(
-                name: "Department");
+                name: "Departments");
         }
     }
 }

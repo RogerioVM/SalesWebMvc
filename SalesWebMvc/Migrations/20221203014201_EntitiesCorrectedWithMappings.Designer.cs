@@ -12,8 +12,8 @@ using SalesWebMvc.Data;
 namespace SalesWebMvc.Migrations
 {
     [DbContext(typeof(SalesWebMvcContext))]
-    [Migration("20221202025539_Correction")]
-    partial class Correction
+    [Migration("20221203014201_EntitiesCorrectedWithMappings")]
+    partial class EntitiesCorrectedWithMappings
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,11 +29,11 @@ namespace SalesWebMvc.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric(38,2)");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<int>("SellerId")
                         .HasColumnType("int");
@@ -45,7 +45,7 @@ namespace SalesWebMvc.Migrations
 
                     b.HasIndex("SellerId");
 
-                    b.ToTable("SalesRecord");
+                    b.ToTable("SalesRecord", (string)null);
                 });
 
             modelBuilder.Entity("SalesWebMvc.Models.ViewModels.Department", b =>
@@ -55,11 +55,11 @@ namespace SalesWebMvc.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(150)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Department");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("Seller", b =>
@@ -67,28 +67,28 @@ namespace SalesWebMvc.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<double>("BaseSalary")
-                        .HasColumnType("float");
+                    b.Property<decimal>("BaseSalary")
+                        .HasColumnType("numeric(38,2)");
 
                     b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(150)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(150)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("Seller");
+                    b.ToTable("Seller", (string)null);
                 });
 
             modelBuilder.Entity("SalesRecord", b =>
@@ -96,7 +96,7 @@ namespace SalesWebMvc.Migrations
                     b.HasOne("Seller", "Seller")
                         .WithMany("Sales")
                         .HasForeignKey("SellerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Seller");
@@ -107,7 +107,7 @@ namespace SalesWebMvc.Migrations
                     b.HasOne("SalesWebMvc.Models.ViewModels.Department", "Department")
                         .WithMany("Sellers")
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Department");
