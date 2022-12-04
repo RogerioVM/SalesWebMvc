@@ -1,5 +1,4 @@
 ﻿using SalesWebMvc.Models.ViewModels;
-using System.Linq;
 public class Seller
 {
     public Seller() { }
