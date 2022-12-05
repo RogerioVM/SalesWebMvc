@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SalesWebMvc.Migrations
 {
-    public partial class EntitiesCorrectedWithMappings : Migration
+    public partial class DepartmentIdCorrection : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

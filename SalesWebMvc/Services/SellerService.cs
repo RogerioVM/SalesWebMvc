@@ -1,5 +1,4 @@
-﻿
-using SalesWebMvc.Data;
+﻿using SalesWebMvc.Data;
 
 public class SellerService
 {
@@ -8,9 +7,13 @@ public class SellerService
     {
         _context = context;
     }  
-
     public List<Seller> FindAll()
     {
         return _context.Seller.ToList();
+    }
+    public void Insert(Seller seller)
+    {
+        _context.Add(seller);
+        _context.SaveChanges(); // Para inserir no banco de dados.
     }
 }

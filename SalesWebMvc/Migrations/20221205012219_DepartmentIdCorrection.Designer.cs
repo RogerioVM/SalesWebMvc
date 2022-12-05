@@ -12,8 +12,8 @@ using SalesWebMvc.Data;
 namespace SalesWebMvc.Migrations
 {
     [DbContext(typeof(SalesWebMvcContext))]
-    [Migration("20221203014201_EntitiesCorrectedWithMappings")]
-    partial class EntitiesCorrectedWithMappings
+    [Migration("20221205012219_DepartmentIdCorrection")]
+    partial class DepartmentIdCorrection
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -4,7 +4,7 @@ using SalesWebMvc.Models.ViewModels;
 
 public class DepartmentMap : IEntityTypeConfiguration<Department>
 {
-    public void Configure(EntityTypeBuilder<Department> builder)
+    public void Configure(EntityTypeBuilder<Department> builder)    
     {
         builder.ToTable("Departments");
 

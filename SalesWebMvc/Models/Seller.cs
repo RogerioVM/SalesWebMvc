@@ -19,6 +19,7 @@ public class Seller
     public DateTime BirthDate { get; set; }
     public double BaseSalary { get; set; }
     public Department Department { get; set; }
+    public int DepartmentId { get; set; } // Para a chave estrangeira na tabela sellers não ser nulo
     public ICollection<SalesRecord> Sales { get; set; } = new List<SalesRecord>();
 
     public void AddSales(SalesRecord sr)
