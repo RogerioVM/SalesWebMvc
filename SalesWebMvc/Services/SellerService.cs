@@ -16,4 +16,13 @@ public class SellerService
         _context.Add(seller);
         _context.SaveChanges(); // Para inserir no banco de dados.
     }
+
+    public Seller FindById(int id) => _context.Seller.FirstOrDefault(x => x.Id == id);
+
+    public void Remove(int id)
+    {
+        var obj = _context.Seller.Find(id);
+        _context.Seller.Remove(obj);
+        _context.SaveChanges();
+    }
 }

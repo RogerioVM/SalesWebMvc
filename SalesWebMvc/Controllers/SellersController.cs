@@ -28,4 +28,29 @@ public class SellersController : Controller
         _sellerService.Insert(seller);
         return RedirectToAction(nameof(Index)); // Método pra redirecionar pra ação Index.
     }
+
+    public IActionResult Delete(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var obj = _sellerService.FindById(id.Value); // Por ser opcional, precisa usar o "Value"
+        if(obj == null)
+        {
+            return NotFound();
+        }
+
+        return View(obj);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+
+    public IActionResult Delete(int id)
+    {
+        _sellerService.Remove(id);
+        return RedirectToAction(nameof(Index));
+    }
 }
