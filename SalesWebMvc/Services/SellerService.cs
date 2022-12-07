@@ -34,4 +34,28 @@ public class SellerService
         _context.Seller.Remove(obj);
         _context.SaveChanges();
     }
+    public void Update(Seller obj)
+    {
+        /*
+            Aqui está sendo lançado uma exceção pela pópria 
+            camada de serviço pelo controlador, sem a necessidade
+            do controlador ir até ao banco de dados.
+            Considerando que a exceção "DbConcurrencyException" foi criada
+            justamente pra isso como forma de explorar as características do MVC.
+         */
+        if (!_context.Seller.Any(x => x.Id == obj.Id))
+        {
+            throw new NotFoundException("Id not found");
+        }
+
+        try
+        {
+            _context.Update(obj);
+            _context.SaveChanges();
+        }
+        catch (DbConcurrencyException e) // exceção de concorrência do banco de dados (do entitty framework)
+        {
+            throw new DbConcurrencyException(e.Message);
+        }
+    }
 }
