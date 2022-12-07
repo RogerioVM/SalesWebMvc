@@ -1,4 +1,5 @@
-﻿using SalesWebMvc.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using SalesWebMvc.Data;
 
 public class SellerService
 {
@@ -6,7 +7,7 @@ public class SellerService
     public SellerService(SalesWebMvcContext context)
     {
         _context = context;
-    }  
+    }
     public List<Seller> FindAll()
     {
         return _context.Seller.ToList();
@@ -17,7 +18,15 @@ public class SellerService
         _context.SaveChanges(); // Para inserir no banco de dados.
     }
 
-    public Seller FindById(int id) => _context.Seller.FirstOrDefault(x => x.Id == id);
+    public Seller FindById(int id)
+    {
+        /* O "Include()" faz um join no DB e traz a informação desejada das tabelas que estão relacionadas,
+        que no caso são as tabelas de vendedor (Seller) e de departamento (Departments). 
+        Essa função pertence ao EF Core */
+
+        return _context.Seller.Include(obj => obj.Department).FirstOrDefault(x => x.Id == id);
+
+    }
 
     public void Remove(int id)
     {
