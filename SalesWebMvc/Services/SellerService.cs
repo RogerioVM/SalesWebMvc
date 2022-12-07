@@ -37,7 +37,7 @@ public class SellerService
     public void Update(Seller obj)
     {
         /*
-            Aqui está sendo lançado uma exceção pela pópria 
+            Aqui está sendo lançada uma exceção pela própria 
             camada de serviço pelo controlador, sem a necessidade
             do controlador ir até ao banco de dados.
             Considerando que a exceção "DbConcurrencyException" foi criada
