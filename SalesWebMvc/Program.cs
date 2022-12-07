@@ -26,6 +26,21 @@ app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedingService>().
 #endregion
 
 
+#region Definição de locale da aplicação
+
+var enUS = new CultureInfo("en-US");
+var localizationOptions = new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture(enUS),
+    SupportedCultures = new List<CultureInfo> { enUS },
+    SupportedUICultures = new List<CultureInfo> { enUS }
+};
+
+#endregion
+
+
+app.UseRequestLocalization(localizationOptions);
+
 #region Outra forma de resolver o problema do Seeding Service
 // Na classe HomeController, utilizar o código abaixo:
 
