@@ -42,3 +42,8 @@
         </form>
     </div>
 </div>
+
+@*Trecho de código pra habilitar a validação por meio de javascript*@
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} 
+}
