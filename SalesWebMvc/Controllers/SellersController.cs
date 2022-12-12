@@ -18,7 +18,6 @@ public class SellersController : Controller
         var list = await _sellerService.FindAllAsync();
         return View(list);
     }
-
     public async Task<IActionResult> Create()
     {
         var departments = await _departmentService.FindAllAsync();
@@ -40,7 +39,6 @@ public class SellersController : Controller
         await _sellerService.InsertAsync(seller);
         return RedirectToAction(nameof(Index)); // Método pra redirecionar pra ação Index.
     }
-
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null)
@@ -59,7 +57,6 @@ public class SellersController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-
     public async Task<IActionResult> Delete(int id)
     {
         try
@@ -72,7 +69,6 @@ public class SellersController : Controller
             return RedirectToAction(nameof(Error), new { message = e.Message });
         }
     }
-
     public async Task<IActionResult> Details(int? id)
     {
         if (id == null)
@@ -109,7 +105,6 @@ public class SellersController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-
     public async Task<IActionResult> Edit(int id, Seller seller)
     {
 
@@ -138,7 +133,6 @@ public class SellersController : Controller
         }
 
     }
-
     public IActionResult Error(string message)
     {
         var viewModel = new ErrorViewModel
