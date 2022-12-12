@@ -1,4 +1,5 @@
-﻿using SalesWebMvc.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using SalesWebMvc.Data;
 using SalesWebMvc.Models.ViewModels;
 
 public class DepartmentService
@@ -9,8 +10,8 @@ public class DepartmentService
         _context = context;
     }
 
-    public List<Department> FindAll()
+    public async Task<List<Department>> FindAllAsync()
     {
-        return _context.Department.OrderBy(x => x.Name).ToList(); // Usando LINQ pra retornar por nome
+        return await _context.Department.OrderBy(x => x.Name).ToListAsync(); // Usando LINQ pra retornar por nome
     }
 }
